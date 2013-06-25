@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jdUpload Test</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+
+    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+    <script src="jd-upload.js"></script>
+    <script>
+        angular.module('app', ['jdUpload']).
+            controller('MyCtrl', function ($scope, $http) {
+                $scope.person = {};
+                $scope.log = function() {
+                    console.log.apply(console, arguments);
+                };
+                $scope.upload = function() {
+                    $scope.uploading = true;
+                };
+                $scope.success = function(content) {
+                    $scope.person.pic = content.name;
+                };
+                $scope.finished = function(content, didUpload) {
+                    $http.post('api.php?method=person', $scope.person).success(function(response) {
+                        $scope.person = response;
+                    });
+                };
+            });
+
+    </script>
+</head>
+<body ng-app="app" ng-controller="MyCtrl">
+
+<div class="row">
+    <div class="span12">
+
+        <form class="form-horizontal">
+            <h1>Add a person</h1>
+            <div class="control-group">
+                <label class="control-label">Name</label>
+                <div class="controls">
+                    <input name="name" ng-model="person.name" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Upload a picture</label>
+                <div class="controls">
+                    <input
+                            jd-upload
+
+                            jd-state="uploading"
+                            jd-url="api.php?method=upload"
+                            jd-json="true"
+                            jd-placeholder="<i class='icon-spinner icon-spin'></i>"
+
+                            on-finished="finished(content, didUpload)"
+                            on-error="log('error')"
+                            on-success="success(content)"
+
+                            type="file"
+                            name="attachment"
+                            />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn btn-primary" ng-click="upload()">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<pre>Uploading: {{ uploading }}
+person: {{ person }}
+</pre>
+
+
+</body>
+</html>
