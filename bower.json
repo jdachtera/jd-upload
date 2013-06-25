@@ -1,0 +1,9 @@
+{
+	"name": "jdUpload",
+	"version": "0.1.0",
+	"main": "jd-upload.js",
+	"dependencies": {
+		"jquery": "",
+		"angular": ""
+	}
+}
