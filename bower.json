@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"main": "jd-upload.js",
 	"dependencies": {
-		"jquery": "",
-		"angular": ""
+		"jquery": "~1.9.0",
+		"angular": "~1.0.0-1.2.0"
 	}
 }
