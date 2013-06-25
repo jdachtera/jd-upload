@@ -10,6 +10,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
     <script src="jd-upload.js"></script>
+
     <script>
         angular.module('app', ['jdUpload']).
             controller('MyCtrl', function ($scope, $http) {
@@ -54,7 +55,7 @@
                             jd-state="uploading"
                             jd-url="api.php?method=upload"
                             jd-json="true"
-                            jd-placeholder="<i class='icon-spinner icon-spin'></i>"
+                            jd-placeholder="<i class='icon-spinner icon-spin'> Uploading...</i>"
 
                             on-finished="finished(content, didUpload)"
                             on-error="log('error')"

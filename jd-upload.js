@@ -76,6 +76,7 @@ angular.module('jdUpload', []).
 								});
 
 								// remove iframe
+								// Taken from https://github.com/twilson63/ngUpload
 								if (content !== "") { // Fixes a bug in Google Chrome that dispose the iframe before content is ready.
 									$timeout(function () {
 										iframe.remove();
