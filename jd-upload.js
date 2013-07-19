@@ -18,6 +18,7 @@ angular.module('jdUpload', []).
 				jdPlaceholder: '@',
 				jdState: '=?',
 				jdUrl: '@',
+				jdUrlMethod: '&',
 				jdJson: '='
 			},
 			link: function(scope, element, attrs) {
@@ -48,13 +49,14 @@ angular.module('jdUpload', []).
 							scope.onFinished({content: null, didUpload: false});
 						} else {
 							id = Math.random().toString(36).substring(7);
+							url = (scope.jdUrlMethod ? scope.jdUrlMethod() : scope.jdUrl) || '';
 
 							// submit the form - requires jQuery
 							form = angular.element('<form></form>');
 
 							form.attr("target", id);
 							form.attr("method", "post");
-							form.attr("action", (scope.jdUrl || ''));
+							form.attr("action", url);
 							form.attr("enctype", "multipart/form-data");
 							form.attr("encoding", "multipart/form-data");
 
