@@ -6,21 +6,21 @@ This is an angular js upload directive for two step form submission.
 Example:
 -------
 
- <input
-     jd-upload
+    <input
+        jd-upload
 
-     jd-state="uploading"
-     jd-url="api.php?method=upload"
-     jd-json="true"
+        jd-state="uploading"
+        jd-url="api.php?method=upload"
+        jd-json="true"
 
-     on-finished="finished(content, didUpload)"
-     on-error="log('error')"
-     on-success="success(content)"
+        on-finished="finished(content, didUpload)"
+        on-error="log('error')"
+        on-success="success(content)"
 
-     type="file"
-     name="attachment"
+        type="file"
+        name="attachment"
 
- />
+    />
 
 As soon as the jd-state variable (In this case 'uploading') is set to true, the upload begins.
 When the iframe is ready the different callbacks (success or error, and finished) are called.
