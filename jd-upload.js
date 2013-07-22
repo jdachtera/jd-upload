@@ -49,7 +49,7 @@ angular.module('jdUpload', []).
 							scope.onFinished({content: null, didUpload: false});
 						} else {
 							id = Math.random().toString(36).substring(7);
-							url = (scope.jdUrlMethod ? scope.jdUrlMethod() : scope.jdUrl) || '';
+							url = (scope.jdUrlMethod() ? scope.jdUrlMethod() : scope.jdUrl) || '';
 
 							// submit the form - requires jQuery
 							form = angular.element('<form></form>');
