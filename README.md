@@ -10,7 +10,8 @@ Example:
         jd-upload
 
         jd-state="uploading"
-        jd-url="api.php?method=upload"
+        jd-url="api.php?method=upload" OR jd-url-method="getUrl()"
+        jd-auto-upload="true" 
         jd-json="true"
 
         on-finished="finished(content, didUpload)"
