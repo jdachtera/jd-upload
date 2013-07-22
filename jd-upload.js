@@ -14,15 +14,31 @@ angular.module('jdUpload', []).
 				onFinished: '&',
 				onSuccess: '&',
 				onError: '&',
+				jdAutoSubmit: '=',
 				jdPlaceholder: '@',
-				jdState: '=',
+				jdState: '=?',
 				jdUrl: '@',
+				jdUrlMethod: '&',
 				jdJson: '='
 			},
 			link: function(scope, element, attrs) {
 				scope.jdState = false;
 
+				function bindChange() {
+					if(scope.jdAutoSubmit) {
+						element.bind('change', function () {
+							scope.jdState = true;
+							upload();
+						})
+					}
+				}
+				bindChange();
+
 				scope.$watch('jdState', function() {
+					upload();
+				});
+
+				var upload = function() {
 					var value, form, placeholder, iframe, id;
 
 					if (scope.jdState === true) {
@@ -33,13 +49,14 @@ angular.module('jdUpload', []).
 							scope.onFinished({content: null, didUpload: false});
 						} else {
 							id = Math.random().toString(36).substring(7);
+							url = (scope.jdUrlMethod ? scope.jdUrlMethod() : scope.jdUrl) || '';
 
 							// submit the form - requires jQuery
 							form = angular.element('<form></form>');
 
 							form.attr("target", id);
 							form.attr("method", "post");
-							form.attr("action", (scope.jdUrl || ''));
+							form.attr("action", url);
 							form.attr("enctype", "multipart/form-data");
 							form.attr("encoding", "multipart/form-data");
 
@@ -67,6 +84,7 @@ angular.module('jdUpload', []).
 								}
 
 								placeholder.replaceWith(element);
+								bindChange(); // Setup binding after element added back to DOM
 
 								// execute the upload response function in the active scope
 								scope.$apply(function () {
@@ -97,7 +115,7 @@ angular.module('jdUpload', []).
 							form.submit();
 						}
 					}
-				});
+				}
 
 			}
 
